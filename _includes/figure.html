@@ -1,0 +1,6 @@
+{%- comment -%}
+  A figure that opens full size on click.
+  {% include figure.html src="/assets/img/projects/x.webp" alt="What the image shows" caption="Optional caption" %}
+  Optional: width / height (pixels, avoids layout jumps), class="media" (square picture next to the text).
+{%- endcomment -%}
+<figure class="{{ include.class | default: 'shot' }}"><button class="zoom" type="button" aria-label="Enlarge the figure"><img src="{{ include.src | relative_url }}"{% if include.width %} width="{{ include.width }}" height="{{ include.height }}"{% endif %} loading="lazy" alt="{{ include.alt | escape }}"></button>{% if include.caption %}<figcaption>{{ include.caption }}</figcaption>{% endif %}</figure>

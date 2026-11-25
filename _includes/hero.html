@@ -1,0 +1,23 @@
+<header class="hero" id="hero">
+  <div class="hero-body" id="about">
+    <figure class="portrait">
+      <img src="{{ '/assets/img/portrait.jpeg' | relative_url }}" alt="Portrait of Louis Duvignacq" width="800" height="800">
+    </figure>
+    <div class="hero-text">
+      <h1 class="name">Louis Duvignacq</h1>
+      <p class="prompt" aria-hidden="true">&gt;&gt;&gt; louis.<em>summary()</em></p>
+      <p class="lede">
+        I am an engineering student at <span class="u">École polytechnique</span>, majoring in
+        applied mathematics and AI, now in my final year at <span class="u">ISAE-SUPAERO</span> in
+        drones, autonomous systems and AI.<span class="caret" aria-hidden="true"></span>
+      </p>
+      <nav class="links" aria-label="Profiles and contact">
+        <a href="{{ site.cv | relative_url }}" target="_blank" rel="noopener">cv.pdf</a>
+        <a href="{{ site.github }}" target="_blank" rel="noopener">github</a>
+        <a href="{{ site.linkedin }}" target="_blank" rel="noopener">linkedin</a>
+        <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+      </nav>
+      <p class="now"><span>now</span>Master in Drones, Autonomous Systems and AI at ISAE-SUPAERO</p>
+    </div>
+  </div>
+</header>

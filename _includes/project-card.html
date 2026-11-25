@@ -1,0 +1,41 @@
+{%- comment -%} One project card. Pass the project as `p`. {%- endcomment -%}
+{%- assign p = include.p -%}
+<article class="card{% if p.main %} featured{% endif %}" id="p-{{ p.slug }}">
+  <header>
+    <span>{{ p.kind }}{% if p.tag %} <span class="tag">{{ p.tag }}</span>{% endif %}</span>
+    <span>{{ p.period }}</span>
+  </header>
+  {%- if p.figure and p.figure.side %}
+  <div class="in split">
+    <div class="split-text">
+      <h3><a href="{{ p.url | relative_url }}">{{ p.title }}</a></h3>
+      {{ p.summary | markdownify }}
+    </div>
+    {% include figure.html class="media" src=p.figure.src alt=p.figure.alt caption=p.figure.caption width=p.figure.width height=p.figure.height %}
+  </div>
+  {%- else %}
+  <div class="in">
+    <h3><a href="{{ p.url | relative_url }}">{{ p.title }}</a></h3>
+    {{ p.summary | markdownify }}
+    {%- if p.figure %}
+    {% include figure.html src=p.figure.src alt=p.figure.alt caption=p.figure.caption width=p.figure.width height=p.figure.height %}
+    {%- endif %}
+  </div>
+  {%- endif %}
+  {%- if p.kv %}
+  <dl class="kv">
+    {%- for row in p.kv %}
+    <dt>{{ row[0] }}</dt><dd>{{ row[1] }}</dd>
+    {%- endfor %}
+  </dl>
+  {%- endif %}
+  <p class="card-links">
+    <a href="{{ p.url | relative_url }}">details →</a>
+    {%- if p.code %}
+    <a href="{{ p.code }}" target="_blank" rel="noopener">code ↗</a>
+    {%- endif %}
+    {%- if p.status %}
+    <span class="private">{{ p.status }}</span>
+    {%- endif %}
+  </p>
+</article>

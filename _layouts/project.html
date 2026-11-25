@@ -1,0 +1,53 @@
+---
+layout: default
+---
+{%- comment -%}
+  A project's own page: the card from the listings, with the text of the
+  Markdown file (everything below its front matter) in the middle.
+{%- endcomment -%}
+<p class="back"><a href="{{ '/projects/' | relative_url }}">← all projects</a></p>
+
+<article class="card project-page{% if page.main %} featured{% endif %}">
+  <header>
+    <span>{{ page.kind }}{% if page.tag %} <span class="tag">{{ page.tag }}</span>{% endif %}</span>
+    <span>{{ page.period }}</span>
+  </header>
+  {%- if page.figure and page.figure.side %}
+  <div class="in split">
+    <div class="split-text">
+      <h1>{{ page.title }}</h1>
+      {{ page.summary | markdownify }}
+    </div>
+    {% include figure.html class="media" src=page.figure.src alt=page.figure.alt caption=page.figure.caption width=page.figure.width height=page.figure.height %}
+  </div>
+  <div class="in">
+    {{ content }}
+  </div>
+  {%- else %}
+  <div class="in">
+    <h1>{{ page.title }}</h1>
+    {{ page.summary | markdownify }}
+    {%- if page.figure %}
+    {% include figure.html src=page.figure.src alt=page.figure.alt caption=page.figure.caption width=page.figure.width height=page.figure.height %}
+    {%- endif %}
+    {{ content }}
+  </div>
+  {%- endif %}
+  {%- if page.kv %}
+  <dl class="kv">
+    {%- for row in page.kv %}
+    <dt>{{ row[0] }}</dt><dd>{{ row[1] }}</dd>
+    {%- endfor %}
+  </dl>
+  {%- endif %}
+  {%- if page.code or page.status %}
+  <p class="card-links">
+    {%- if page.code %}
+    <a href="{{ page.code }}" target="_blank" rel="noopener">code ↗</a>
+    {%- endif %}
+    {%- if page.status %}
+    <span class="private">{{ page.status }}</span>
+    {%- endif %}
+  </p>
+  {%- endif %}
+</article>

@@ -1,0 +1,26 @@
+<footer class="site-foot">
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <p class="foot-name">Louis Duvignacq</p>
+      <p>Machine learning, autonomous systems and applied mathematics.</p>
+    </div>
+    <div>
+      <h2>elsewhere</h2>
+      <ul>
+        <li><a href="{{ site.github }}" target="_blank" rel="noopener">github</a></li>
+        <li><a href="{{ site.linkedin }}" target="_blank" rel="noopener">linkedin</a></li>
+        <li><a href="{{ site.cv | relative_url }}" target="_blank" rel="noopener">cv.pdf</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>contact</h2>
+      <ul>
+        <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-base">
+    <p>© {{ site.time | date: '%Y' }} Louis Duvignacq, last updated {{ site.updated }}</p>
+    <p><a href="#top">back to top ↑</a></p>
+  </div>
+</footer>

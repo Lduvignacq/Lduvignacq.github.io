@@ -1,0 +1,47 @@
+---
+title: Projects
+prompt: projects()
+nav: projects
+permalink: /projects/
+description: Projects by Louis Duvignacq in deep learning, autonomous systems, statistics and data visualization.
+---
+{%- comment -%}
+  Every project in _projects/ gets a card here, sorted by `order`.
+  The short ones below come from _data/other_projects.yml.
+{%- endcomment -%}
+{%- assign all = site.projects | sort: "order" -%}
+<section class="section" id="work" aria-labelledby="h-work">
+  <h2 class="section-title" id="h-work">projects</h2>
+
+  <div class="cards">
+  {%- for p in all %}
+  {% include project-card.html p=p %}
+  {%- endfor %}
+  </div>
+</section>
+
+<section class="section" id="other" aria-labelledby="h-other">
+  <h2 class="section-title" id="h-other">other projects</h2>
+
+  <ul class="rows">
+  {%- for r in site.data.other_projects %}
+    <li id="p-{{ r.id }}">
+      <div class="row-meta">
+        <p>{{ r.period }}</p>
+        <p class="row-stack">{{ r.stack }}</p>
+      </div>
+      <div class="row-body">
+        <h3>{{ r.title }}</h3>
+        <p>{{ r.text }}</p>
+      </div>
+      <p class="row-links">
+        {%- if r.code %}
+        <a href="{{ r.code }}" target="_blank" rel="noopener">code ↗</a>
+        {%- else %}
+        <span class="private">{{ r.status | default: "no code online" }}</span>
+        {%- endif %}
+      </p>
+    </li>
+  {%- endfor %}
+  </ul>
+</section>

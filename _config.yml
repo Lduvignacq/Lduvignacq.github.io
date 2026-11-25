@@ -1,0 +1,41 @@
+# Site settings. GitHub Pages rebuilds the site from these files on every push.
+title: Louis Duvignacq
+tagline: ML, autonomous systems & applied maths
+description: >-
+  Engineering student at École polytechnique and ISAE-SUPAERO, working between deep learning,
+  autonomous systems and statistics.
+url: https://lduvignacq.github.io
+baseurl: ""
+
+# Links used in the header, the nav and the footer
+cv: /assets/cv/Resume_louis.pdf
+email: louis.duvignacq@gmail.com
+github: https://github.com/Lduvignacq
+linkedin: https://www.linkedin.com/in/louis-duvignacq-7a28a328a
+updated: Nov 2026
+
+# One Markdown file per project in _projects/, each with its own page at /projects/<file name>/
+collections:
+  projects:
+    output: true
+    permalink: /projects/:name/
+
+defaults:
+  - scope: { path: "", type: projects }
+    values: { layout: project, prompt: "projects()" }
+  - scope: { path: "" }
+    values: { layout: default }
+
+# Same Markdown settings as GitHub Pages, so a local preview matches the live site
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - "photos nba"
+  - "*.mp4"

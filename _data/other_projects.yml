@@ -1,0 +1,24 @@
+# Short projects listed as rows at the bottom of /projects/ (no page of their own).
+# Leave `code` out to show `status` instead (default: "no code online").
+
+- id: obesity
+  title: Estimating obesity levels from eating habits
+  period: sep → oct 2026
+  stack: scikit-learn · xgboost · pandas
+  text: >-
+    Decision trees, random forests, bagging and XGBoost on 2,111 survey answers from Mexico,
+    Peru and Colombia, sorted into seven weight classes. The random forest reaches 83%
+    accuracy on held-out data, and PCA with a discriminant analysis shows how the classes
+    separate.
+  code: https://github.com/Lduvignacq/Estimation-of-obesity-levels-based-on-eating-habits
+
+- id: speakers
+  title: Loudspeaker design
+  period: physics
+  stack: vibrational modes
+  text: >-
+    An analysis of membrane-based loudspeakers through their vibrational modes. On a rig we
+    built, laser measurements of tensioned membranes, with and without a central mass,
+    match the first two modes of the circular-membrane model; a Bessel model with a mass
+    discontinuity explains the frequency shift. Our prototype, a speaker coupled to the
+    membrane, plays audible, amplified sound.
