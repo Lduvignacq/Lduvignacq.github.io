@@ -603,6 +603,16 @@ section[id], .card, .rows > li { scroll-margin-top: 4.75rem; }
 .project-page ul, .project-page ol { max-width: var(--measure); padding-left: 1.2rem; }
 .project-page li { margin-bottom: .3rem; }
 
+/* Two figures side by side, at their own proportions (white plots). */
+.pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: start;
+  margin: .35rem 0 1rem;
+}
+.pair .shot { margin: 0; }
+
 /* --- other projects: one row each ----------------------------------- */
 
 .rows {
@@ -893,7 +903,7 @@ section[id], .card, .rows > li { scroll-margin-top: 4.75rem; }
 
   .card .in.split { grid-template-columns: 1fr; }
   .media { width: min(15rem, 100%); }
-  .duo { grid-template-columns: 1fr; }
+  .duo, .pair { grid-template-columns: 1fr; }
 
   .rows > li { grid-template-columns: 1fr; }
   .row-links { padding-top: .35rem; }

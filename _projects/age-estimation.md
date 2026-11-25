@@ -4,13 +4,13 @@ kind: deep learning
 period: feb → mar 2026
 order: 5
 summary: |
-  Apparent age is an opinion: on APPA-REAL each face is rated by about 38 people, and they
-  disagree by some 4.5 years. On a pretrained SE-ResNeXt50 we compared ways to train with
-  that ambiguity: DEX classification with hard or Gaussian-smoothed targets, mean-variance
-  and CORAL losses, and a Residual DEX head that corrects apparent age towards real age. I
-  designed the uncertainty quantification on the DEX head, with MC-Dropout and a
-  heteroscedastic loss. On the test set, half of the predictions land within
-  <strong class="hl">4.5 years</strong> of the raters' consensus.
+  On APPA-REAL, each face is rated by about 38 people, whose estimates of apparent age differ
+  by around 4.5 years. Starting from a pretrained SE-ResNeXt50, we compared several ways of
+  training with this ambiguity: DEX classification with hard or Gaussian-smoothed targets,
+  mean-variance and CORAL losses, and a Residual DEX head that corrects apparent age towards
+  real age. I designed the uncertainty quantification on the DEX head, with MC-Dropout and a
+  heteroscedastic loss. On the test set, the median error is
+  <strong class="hl">4.5 years</strong> from the raters' consensus.
 figure:
   src: /assets/img/projects/age-test-set.webp
   width: 1389
@@ -24,11 +24,10 @@ kv:
 code: https://github.com/Lduvignacq/Age-estimation-with-deep-learning
 ---
 
-Before any training, a check on the backbone: frozen ImageNet features, L2-normalised
-and clustered by k-means, separate 13,233 faces (LFW) from 13,233 CIFAR-10 objects with
-3 errors in 26,466 images.
+As a preliminary check of the backbone, frozen ImageNet features, L2-normalized and
+clustered with k-means, separate 13,233 faces (LFW) from 13,233 CIFAR-10 objects with 3
+errors out of 26,466 images.
 
-Soft targets matter. Replacing the one-hot target with a Gaussian around the annotated
-age (σ = 2 years) brings the test error on apparent age from 7.5 down to 6.5 years.
-Residual DEX gives the best error on real age (8.5 years), and test-time augmentation
-saves another 0.15 year.
+Replacing the one-hot target with a Gaussian centred on the annotated age (σ = 2 years)
+reduces the test error on apparent age from 7.5 to 6.5 years. Residual DEX gives the lowest
+error on real age (8.5 years), and test-time augmentation reduces it by a further 0.15 year.

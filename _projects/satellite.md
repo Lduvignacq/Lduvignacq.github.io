@@ -27,26 +27,22 @@ kv:
   stack: python · or-tools cp-sat · pytorch · pytorch geometric
 ---
 
-**The problem.** An agile satellite can tilt in any direction, so it can capture the same
-ground target from several positions along its orbit: each one is an access window.
-Rescheduling means choosing exactly one window for each target in a local neighborhood of the
-plan, so that the satellite always has time to turn from one shot to the next. Some targets
-must be shot twice, from two different angles, to build 3D (stereo) images, and the first and
-last acquisitions of the neighborhood are fixed. In the end it is a feasibility problem on a
-graph: nodes are candidate acquisitions, and edges are the maneuvers physically possible
-between them.
+An agile satellite can tilt in any direction, so each ground target can be captured from
+several positions along the orbit, called access windows. Rescheduling a local part of the
+plan means choosing one window per target so that the satellite always has time to turn
+between two shots, with the first and last acquisitions fixed and some targets shot twice
+from different angles for stereo imaging. The problem can be written on a graph whose nodes
+are candidate acquisitions and whose edges are the feasible maneuvers between them.
 
-**Exact baselines.** We started with deterministic solvers: a dynamic programming approach
-and a constraint programming model (Google OR-Tools CP-SAT). They always return the right
-answer, but their running time grows quickly with the number of targets. They give us both a
-reference to measure against and the labels to learn from.
+We first built exact solvers, one based on dynamic programming and a constraint programming
+model with OR-Tools CP-SAT. They always find the right answer, but their running time grows
+quickly with the number of targets. Their solutions serve both as a reference and as
+training labels.
 
-**Learning to search.** Following Gasse et al. (2019), we encode each instance as a graph and
-train a GNN by imitation learning to predict the decisions the exact solver would make. The
-network does not replace the solver: it guides the search, and prunes the bad branches early.
-The open question is generalization: does a model trained on small neighborhoods still make
-good decisions when the number of targets grows tenfold?
+Each instance is then encoded as a graph, and a GNN is trained by imitation learning to
+predict the decisions of the exact solver. The network is used to guide the search, pruning
+poor branches early. We are studying whether a model trained on small neighborhoods keeps
+making good decisions on instances ten times larger.
 
-**Benchmark.** Every method goes through the same evaluator, under the same time limit. We
-compare them on three things: feasibility, solution quality, and how runtime scales with
-problem size.
+All methods run through the same evaluator under the same time limit, and are compared on
+feasibility, solution quality and how runtime scales with problem size.

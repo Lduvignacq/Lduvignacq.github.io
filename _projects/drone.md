@@ -11,8 +11,8 @@ summary: |
   reinforcement learning agent. Over <strong class="hl">140</strong> unseen maps, the target
   was found before timeout in every run, and intercepted on <strong class="hl-2">75%</strong> of them.
 
-  The classical planner also stays fully explainable and under control, and in every run it
-  brought the drone within <strong class="hl">2 m</strong> of the target.
+  The classical planner remains fully explainable, and in every run it brought the drone
+  within <strong class="hl">2 m</strong> of the target.
 figure:
   src: /assets/img/projects/drone-village.gif
   width: 900
@@ -25,27 +25,25 @@ kv:
   stack: python
 ---
 
-**The problem.** The mission has three phases: exploration, target acquisition and final
-guidance. The target is occluded, so the drone cannot fly straight to it. It has to decide
-where to look next, update what it knows, and keep a collision-free trajectory while the map
-is still being discovered.
+The mission has three phases: exploration, target acquisition and final guidance. Since the
+target is occluded, the drone has to choose where to look next and update its map, while
+keeping a collision-free trajectory through space it has only partly seen.
 
-**Deterministic exploration.** The environment is a 3D voxel grid whose cells are free,
-occupied or unknown. Each observation updates it by raycasting, which handles occlusions
-naturally. Frontier voxels, free cells next to unknown space, are clustered, and each cluster
-gets a candidate viewpoint. The drone heads for the one with the best trade-off between
-information gain (the unknown voxels visible from it) and path cost. A* plans the path on the
-grid, and the loop replans as new obstacles show up.
+The environment is represented as a 3D voxel grid (free, occupied or unknown), updated by
+raycasting at each observation. Frontier voxels, free cells next to unknown space, are
+grouped into clusters, each with a candidate viewpoint. The drone heads for the viewpoint
+with the best balance between information gain and path cost, A* plans the path on the
+grid, and the loop replans as new obstacles appear.
 
-**Safe Flight Corridors.** A grid path is not a flyable trajectory. Following Liu et al.
-(RA-L 2017), I inflate each segment of the path into an obstacle-free convex polyhedron: an
-ellipsoid grows around the segment, then tangent half-spaces cut it. The trajectory must stay
-inside this chain of overlapping polyhedra. Every constraint is linear, so generating a smooth
-trajectory under velocity and acceleration bounds comes down to a single quadratic program,
-and the result is collision-free by construction.
+To turn the grid path into a flyable trajectory, I used Safe Flight Corridors (RA-L, 2017).
+Each segment of the path is inflated into an obstacle-free convex polyhedron, by growing an
+ellipsoid around it and cutting it with tangent half-spaces. Keeping the trajectory inside
+this chain of polyhedra only takes linear constraints, so a smooth trajectory with velocity
+and acceleration bounds comes from a single quadratic program and is collision-free by
+construction.
 
-**The RL comparison.** Rather than learning motor commands end to end, the RL agent only
-replaces the frontier-selection rule: a PPO policy picks the next frontier cluster among K
-candidates, and A* and the corridors still fly the drone. The decision horizon is shorter,
-and every trajectory stays safe. Both methods were evaluated on the same unseen maps, on success rate and on the number of
-steps to acquisition.
+In the comparison, the RL agent only replaces the frontier-selection rule: a PPO policy
+picks the next frontier cluster among K candidates, while A* and the corridors still fly the
+drone, which keeps the decision horizon short and every trajectory safe. Both approaches
+were evaluated on the same unseen maps, on success rate and on the number of steps to
+acquisition.
